@@ -8,7 +8,7 @@ class Buttons(object):
 		self.log = log
 
 	#click on a button or select menu option(s)
-	def click(self, applicationID, channelID, messageID, messageFlags, guildID, nonce, data):
+	def click(self, applicationID, channelID, messageID, messageFlags, guildID, nonce, data, sessionID):
 		url = self.discord+"interactions"
 		if nonce == "calculate":
 			from ..utils.nonce import calculateNonce
@@ -24,7 +24,8 @@ class Buttons(object):
 			"message_id": messageID,
 			"application_id": applicationID,
 			"data": data,
+			"session_id": sessionID
 		}
-		if guildID == None:
-			body.pop("guild_id")
+
 		return Wrapper.sendRequest(self.s, 'post', url, body, log=self.log)
+
